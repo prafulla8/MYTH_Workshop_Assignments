@@ -3,12 +3,15 @@
 //Calculator labs solutions here
 
 \TLV
-   //$reset = *reset;
-
-   |comp
+   $reset = *reset;
+   |calc
       @1
-         $err1 = $bad_input + $illegal_opp ;
-      @3
-         $err2 = $err1 + $over_flow ;
-      @6
-         $err3 = $err2 + $div_by_zero ;
+         
+         $val1[31:0] = >>1$out;
+         $val2[31:0] = $rand2[3:0] ;
+         $sum[31:0] = $val1 + $val2 ;
+         $diff[31:0] = $val1 - $val2 ;
+         $prod[31:0] = $val1* $val2 ;
+         $quot[31:0] = $val1 / $val2 ;
+         $out[31:0] = $reset ? 0 : ($op[1]? ($op[0]? $quot: $prod ): ($op[0]? $diff : $sum) ); 
+         $num[31:0] = $reset? 0: (>>1$num + 1) ;
